@@ -57,14 +57,14 @@
                         </div>
                         <div class="tab-contents" id="experience">
                             <ul>
-                                <li><span>2023</span><br> Completed internship at KPCL</li>
+                                <li><span>2023</span><br> Completed internship at Karnataka Power Corporation Limited</li>
                                 <li><span>2024 -current</span><br> Persuing Java Full Stack Course</li>
                             </ul>
                         </div>
                         <div class="tab-contents" id="education">
                             <ul>
-                                <li><span>2018-2020</span><br> PUC at Brilliant PU college</li>
-                                <li><span>2021-2024</span><br> B.E at Dr.AIT</li>
+                                <li><span>2018-2020</span><br> PUC at Brilliant PU college, Hassan</li>
+                                <li><span>2021-2024</span><br> B.E at Dr.AIT, Bangalore</li>
                                 <li><span>2024</span><br>Java Full Stack Training at Pentagon Space</li>
                             </ul>
                         </div>
@@ -149,12 +149,13 @@
                 <a href="images/Shruthi_Resume.pdf" download class="btn btn2">Download CV</a>
                 </div>
                 <div class="contact-right">
-                   <form >
+                   <form name="submit-to-google-sheet">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
                     <textarea name="message" rows="6" placeholder="Your Message"></textarea>
                     <button type="submit" class="btn btn2">Submit</button>
                    </form>
+                   <span id="msg"></span>
                 </div>
             </div>
         </div>
@@ -192,7 +193,24 @@
             sidemenu.style.right="-200px"
         }
 
-
     </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwAtvrYR5_j7Fvsi1ukB_HXzgKQgzb6GMQqVcW9ExB5E0Wvh9tUnV2_b5hsbGvWw8AEAw/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg=document.getElementById("msg")
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                msg.innerHTML="Message Sent Successfully"
+                setTimeout(function(){
+                    mag.innerHTML=""
+                },3000)
+                form.reset()
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
 </body>
 </html>
